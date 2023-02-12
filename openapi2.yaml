@@ -1,0 +1,77 @@
+openapi: 3.0.0
+info:
+  title: H minus sports API
+  version: 1.0.0
+tags: 
+  - name: Article
+    description: arcticle desc
+  - name: Product
+    description: products
+paths:
+  /product:
+    get:
+      parameters: 
+        - in: header
+          name: my-header
+          schema:
+            type: integer
+            example: 123
+      tags:
+        - Product
+      responses:
+        200:
+          description: List of products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Products'
+  /article:
+    get:
+      tags: [Article]
+      responses:
+        200:
+          description: List of articles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    createdDate:
+                      type: string
+                      format: date
+                      example: 2022-01-01
+                    tagline:
+                      type: string
+                      example: Best tagline
+                    content:
+                      type: string
+                      example: interesting content
+                    category:
+                      type: string
+                      example: sport tips
+                    tags:
+                      type: array
+                      items:
+                        type: string
+                        example: [tag1, tag1]
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Lemon Water
+    Products:
+      type: array
+      items:
+        $ref: '#/components/schemas/Product'
+                        
